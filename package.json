@@ -1,6 +1,6 @@
 {
   "name": "rescale-util",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Rescale util",
   "main": "src/rescale-util.js",
   "scripts": {
