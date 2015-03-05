@@ -11,12 +11,6 @@ var error = '',
  * @return {Boolean}
  */
 exports.isValidScale = function isValidScale(scale) {
-  if (!scale) {
-    setError('the scale cannot be falsy');
-
-    return false;
-  }
-
   if (!util.isArray(scale) || scale.length !== 2) {
     setError('the scale must be an Array with two elements');
 
@@ -43,6 +37,13 @@ exports.isValidScale = function isValidScale(scale) {
  */
 exports.getLastError = function getLastError() {
   return error;
+}
+
+/**
+ * @return {void}
+ */
+exports.resetLastError = function getLastError() {
+  error = '';
 }
 
 /**
