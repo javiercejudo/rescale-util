@@ -1,3 +1,5 @@
+/*jshint node:true, mocha:true */
+
 'use strict';
 
 var should = require('should');
@@ -11,8 +13,8 @@ var resetLastError = rescaleUtil.resetLastError;
 describe('utility', function() {
   describe('isValidScale called with proper scales', function () {
     it('should validate', function() {
-      isValidScale([0, 5]).should.be.exactly(true);
-      isValidScale([-10, -4]).should.be.exactly(true);
+      isValidScale([Math.PI, 0]).should.be.exactly(true);
+      isValidScale([-4/3, -1]).should.be.exactly(true);
     });
   });
 
@@ -46,19 +48,23 @@ describe('utility', function() {
       getLastError().should.match(/^the scale must be an Array with two elements*/);
     });
 
-    it('should reject scales where Infinity is involved', function() {
-      var infinityErrorMessageRegex = (/^the extremes cannot be Infinity*/);
+    it('should reject scales where either extreme is not a finite number', function() {
+      var extremesErrorMessageRegex = (/^the extremes must be finite numbers*/);
 
       isValidScale([-Infinity, 0]);
-      getLastError().should.match(infinityErrorMessageRegex);
+      getLastError().should.match(extremesErrorMessageRegex);
       resetLastError();
 
       isValidScale([0, Infinity]);
-      getLastError().should.match(infinityErrorMessageRegex);
+      getLastError().should.match(extremesErrorMessageRegex);
       resetLastError();
 
       isValidScale([-Infinity, Infinity]);
-      getLastError().should.match(infinityErrorMessageRegex);
+      getLastError().should.match(extremesErrorMessageRegex);
+      resetLastError();
+
+      isValidScale(['a', 1]);
+      getLastError().should.match(extremesErrorMessageRegex);
     });
 
     it('should reject scales where the extremes are equal', function() {
@@ -68,10 +74,6 @@ describe('utility', function() {
   });
 
   describe('resetLastError', function () {
-    afterEach(function () {
-      resetLastError();
-    });
-
     it('should reset the last error', function() {
       isValidScale(Math.LOG2E);
       getLastError().should.not.be.exactly('');
