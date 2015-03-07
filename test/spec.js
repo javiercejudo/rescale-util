@@ -8,47 +8,74 @@ var rescaleUtil = require('../src/rescale-util.js');
 
 var isValidScale = rescaleUtil.isValidScale;
 var isValidPreset = rescaleUtil.isValidPreset;
+var areValidPresets = rescaleUtil.areValidPresets;
 var getLastError = rescaleUtil.getLastError;
 var resetLastError = rescaleUtil.resetLastError;
 
 describe('utility', function() {
-  describe('isValidScale called with proper scales', function () {
-    it('should validate', function() {
-      isValidScale([Math.PI, 0]).should.be.exactly(true);
-      isValidScale([-4/3, -1]).should.be.exactly(true);
+  describe('isValidScale', function () {
+    describe('called with proper scales', function () {
+      it('should validate', function() {
+        isValidScale([Math.PI, 0]).should.be.exactly(true);
+        isValidScale([-4/3, -1]).should.be.exactly(true);
+      });
+    });
+
+    describe('called with improper scales', function () {
+      afterEach(function () {
+        resetLastError();
+      });
+
+      it('should not validate', function() {
+        isValidScale([-Infinity, 0]).should.be.exactly(false);
+        isValidScale([3, 3]).should.be.exactly(false);
+        isValidScale(NaN).should.be.exactly(false);
+        isValidScale({min: 0, max: 5}).should.be.exactly(false);
+        isValidScale(-4).should.be.exactly(false);
+      });
     });
   });
 
-  describe('isValidScale called with improper scales', function () {
-    afterEach(function () {
-      resetLastError();
+  describe('isValidPreset', function () {
+    describe('called with proper presets', function () {
+      it('should validate', function() {
+        isValidPreset([[Math.PI, 0], [Math.E, 5]]).should.be.exactly(true);
+        isValidPreset([[0, 100], [32, 212]]).should.be.exactly(true);
+      });
     });
 
-    it('should not validate', function() {
-      isValidScale([-Infinity, 0]).should.be.exactly(false);
-      isValidScale([3, 3]).should.be.exactly(false);
-      isValidScale(NaN).should.be.exactly(false);
-      isValidScale({min: 0, max: 5}).should.be.exactly(false);
-      isValidScale(-4).should.be.exactly(false);
+    describe('called with improper presets', function () {
+      afterEach(function () {
+        resetLastError();
+      });
+
+      it('should not validate', function() {
+        isValidPreset([-Infinity, 0]).should.be.exactly(false);
+        isValidPreset([[-Infinity, 0], [0, 5]]).should.be.exactly(false);
+        isValidPreset(NaN, NaN).should.be.exactly(false);
+        isValidPreset([-5, -2], {min: 0, max: 5}).should.be.exactly(false);
+      });
     });
   });
 
-  describe('isValidPreset called with proper presets', function () {
-    it('should validate', function() {
-      isValidPreset([[Math.PI, 0], [Math.E, 5]]).should.be.exactly(true);
-      isValidPreset([[0, 100], [32, 212]]).should.be.exactly(true);
-    });
-  });
-
-  describe('isValidPreset called with improper presets', function () {
-    afterEach(function () {
-      resetLastError();
+  describe('areValidPreset', function () {
+    describe('called with proper presets', function () {
+      it('should validate', function() {
+        areValidPresets([[[Math.PI, 0], [Math.E, 5]], [[0, 100], [32, 212]]])
+          .should.be.exactly(true);
+      });
     });
 
-    it('should not validate', function() {
-      isValidPreset([-Infinity, 0]).should.be.exactly(false);
-      isValidPreset(NaN, NaN).should.be.exactly(false);
-      isValidPreset([-5, -2], {min: 0, max: 5}).should.be.exactly(false);
+    describe('called with improper presets', function () {
+      afterEach(function () {
+        resetLastError();
+      });
+
+      it('should not validate', function() {
+        areValidPresets([[-Infinity, 0]]).should.be.exactly(false);
+        areValidPresets(NaN, NaN).should.be.exactly(false);
+        areValidPresets([-5, -2], {min: 0, max: 5}).should.be.exactly(false);
+      });
     });
   });
 
