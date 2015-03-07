@@ -7,6 +7,7 @@ var sinon = require('sinon');
 var rescaleUtil = require('../src/rescale-util.js');
 
 var isValidScale = rescaleUtil.isValidScale;
+var isValidPreset = rescaleUtil.isValidPreset;
 var getLastError = rescaleUtil.getLastError;
 var resetLastError = rescaleUtil.resetLastError;
 
@@ -29,6 +30,25 @@ describe('utility', function() {
       isValidScale(NaN).should.be.exactly(false);
       isValidScale({min: 0, max: 5}).should.be.exactly(false);
       isValidScale(-4).should.be.exactly(false);
+    });
+  });
+
+  describe('isValidPreset called with proper presets', function () {
+    it('should validate', function() {
+      isValidPreset([[Math.PI, 0], [Math.E, 5]]).should.be.exactly(true);
+      isValidPreset([[0, 100], [32, 212]]).should.be.exactly(true);
+    });
+  });
+
+  describe('isValidPreset called with improper presets', function () {
+    afterEach(function () {
+      resetLastError();
+    });
+
+    it('should not validate', function() {
+      isValidPreset([-Infinity, 0]).should.be.exactly(false);
+      isValidPreset(NaN, NaN).should.be.exactly(false);
+      isValidPreset([-5, -2], {min: 0, max: 5}).should.be.exactly(false);
     });
   });
 
@@ -70,6 +90,11 @@ describe('utility', function() {
     it('should reject scales where the extremes are equal', function() {
       isValidScale([3, 3]);
       getLastError().should.match(/^the extremes cannot be the same*/);
+    });
+
+    it('should reject non-array presets', function() {
+      isValidPreset(45);
+      getLastError().should.match(/^a preset must be an Array with two scales*/);
     });
   });
 

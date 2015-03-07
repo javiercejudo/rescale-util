@@ -19,6 +19,13 @@ rescaleUtil.getLastError(); // => the extremes cannot be the same. Eg. [0, 1]
 
 rescaleUtil.resetLastError();
 rescaleUtil.getLastError(); // => '' (empty string)
+
+rescaleUtil.isValidPreset([[-3, 5], [1, 0]]); // => true
+rescaleUtil.isValidPreset(10); // => false
+rescaleUtil.getLastError(); // => the extremes cannot be the same. Eg. [0, 1]
+
+rescaleUtil.resetLastError();
+rescaleUtil.getLastError(); // => '' (empty string)
 ```
 
 See [spec](test/spec.js).
