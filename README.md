@@ -1,6 +1,8 @@
 # rescale-util
 
 [![Build Status](https://travis-ci.org/javiercejudo/rescale-util.svg)](https://travis-ci.org/javiercejudo/rescale-util)
+[![Coverage Status](https://coveralls.io/repos/javiercejudo/rescale-util/badge.svg?branch=master)](https://coveralls.io/r/javiercejudo/rescale-util?branch=master)
+[![Code Climate](https://codeclimate.com/github/javiercejudo/rescale-util/badges/gpa.svg)](https://codeclimate.com/github/javiercejudo/rescale-util)
 
 Rescale utilities
 
