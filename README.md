@@ -31,4 +31,15 @@ rescaleUtil.areValidPresets(10); // => false
 rescaleUtil.getLastError(); // => presets must be an Array with presets. Eg. [[[0, 100], [32, 212]], [[0, 100], [-273.15, -173.15]]]
 ```
 
+Rescale-util also provides a specific error:
+
+```js
+var rescaleUtil = require('rescale-util');
+var RescaleError = rescaleUtil.RescaleError;
+
+if (!rescaleUtil.isValidScale(someScale)) {
+  throw new RescaleError(rescaleUtil.getLastError());
+}
+```
+
 See [spec](test/spec.js).

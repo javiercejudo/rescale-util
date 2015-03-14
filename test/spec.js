@@ -11,6 +11,7 @@ var isValidPreset = rescaleUtil.isValidPreset;
 var areValidPresets = rescaleUtil.areValidPresets;
 var getLastError = rescaleUtil.getLastError;
 var resetLastError = rescaleUtil.resetLastError;
+var RescaleError = rescaleUtil.RescaleError;
 
 describe('utility', function() {
   describe('isValidScale', function () {
@@ -131,6 +132,12 @@ describe('utility', function() {
       getLastError().should.not.be.exactly('');
       resetLastError();
       getLastError().should.be.exactly('');
+    });
+  });
+
+  describe('RescaleError', function () {
+    it('should be an instance of Error', function() {
+      (new RescaleError()).should.be.an.instanceof(Error);
     });
   });
 });

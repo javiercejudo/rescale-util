@@ -10,6 +10,16 @@ var error = '',
     validPresetsExample = 'Eg. [[[0, 100], [32, 212]], [[0, 100], [-273.15, -173.15]]]',
     api = {};
 
+function RescaleError(message) {
+    this.message = message;
+    this.stack = (new Error()).stack;
+}
+
+util.inherits(RescaleError, Error);
+RescaleError.prototype.name = 'RescaleError';
+
+exports.RescaleError = RescaleError;
+
 exports.isValidScale = api.isValidScale = function isValidScale(scale) {
   if (!util.isArray(scale) || scale.length !== 2) {
     setScaleError('the scale must be an Array with two elements');
