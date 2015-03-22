@@ -43,3 +43,10 @@ if (!rescaleUtil.isValidScale(someScale)) {
 ```
 
 See [spec](test/spec.js).
+
+## Related projects
+
+- [linear-converter](https://github.com/javiercejudo/linear-converter): flexible linear converter with built in conversions for common units.
+- [rescale](https://github.com/javiercejudo/rescale): rescales a point given two scales.
+- [scale](https://github.com/javiercejudo/scale): scales normalised data.
+- [normalise](https://github.com/javiercejudo/normalise): normalise data to [0, 1].
