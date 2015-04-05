@@ -139,5 +139,9 @@ describe('utility', function() {
     it('should be an instance of Error', function() {
       (new RescaleError()).should.be.an.instanceof(Error);
     });
+
+    it('should be named RescaleError', function() {
+      (new RescaleError()).name.should.be.exactly('RescaleError');
+    });
   });
 });

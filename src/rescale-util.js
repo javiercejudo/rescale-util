@@ -2,8 +2,6 @@
 
 'use strict';
 
-var util = require('util');
-
 var error = '',
     validScaleExample = 'Eg. [0, 1]',
     validPresetExample = 'Eg. [[0, 100], [32, 212]]',
@@ -11,17 +9,18 @@ var error = '',
     api = {};
 
 function RescaleError(message) {
-    this.message = message;
-    this.stack = (new Error()).stack;
+  this.name = 'RescaleError';
+  this.message = message;
+  this.stack = (new Error()).stack;
 }
 
-util.inherits(RescaleError, Error);
-RescaleError.prototype.name = 'RescaleError';
+RescaleError.prototype = Object.create(Error.prototype);
+RescaleError.prototype.constructor = RescaleError;
 
 exports.RescaleError = RescaleError;
 
 exports.isValidScale = api.isValidScale = function isValidScale(scale) {
-  if (!util.isArray(scale) || scale.length !== 2) {
+  if (!Array.isArray(scale) || scale.length !== 2) {
     setScaleError('the scale must be an Array with two elements');
 
     return false;
@@ -43,7 +42,7 @@ exports.isValidScale = api.isValidScale = function isValidScale(scale) {
 };
 
 exports.isValidPreset = api.isValidPreset = function isValidPreset(preset) {
-  if (!util.isArray(preset) || preset.length !== 2) {
+  if (!Array.isArray(preset) || preset.length !== 2) {
     setPresetError('a preset must be an Array with two scales');
 
     return false;
@@ -55,7 +54,7 @@ exports.isValidPreset = api.isValidPreset = function isValidPreset(preset) {
 };
 
 exports.areValidPresets = function areValidPresets(presets) {
-  if (!util.isArray(presets)) {
+  if (!Array.isArray(presets)) {
     setPresetsError('presets must be an Array with presets');
 
     return false;
