@@ -33,6 +33,7 @@ describe('utility', function() {
         isValidScale(NaN).should.be.exactly(false);
         isValidScale({min: 0, max: 5}).should.be.exactly(false);
         isValidScale(-4).should.be.exactly(false);
+        isValidScale(['1', '2']).should.be.exactly(false);
       });
     });
   });
@@ -91,12 +92,12 @@ describe('utility', function() {
       getLastError().should.be.exactly('');
     });
 
-    it('should reject non-array scales', function() {
+    it('should recognise non-array scales', function() {
       isValidScale(-4);
       getLastError().should.match(/^the scale must be an Array with two elements*/);
     });
 
-    it('should reject scales where either extreme is not a finite number', function() {
+    it('should recognise scales where either extreme is not a finite number', function() {
       var extremesErrorMessageRegex = (/^the extremes must be finite numbers*/);
 
       isValidScale([-Infinity, 0]);
@@ -113,14 +114,18 @@ describe('utility', function() {
 
       isValidScale(['a', 1]);
       getLastError().should.match(extremesErrorMessageRegex);
+      resetLastError();
+
+      isValidScale(['1', '3']);
+      getLastError().should.match(extremesErrorMessageRegex);
     });
 
-    it('should reject scales where the extremes are equal', function() {
+    it('should recognise scales where the extremes are equal', function() {
       isValidScale([3, 3]);
       getLastError().should.match(/^the extremes cannot be the same*/);
     });
 
-    it('should reject non-array presets', function() {
+    it('should recognise non-array presets', function() {
       isValidPreset(45);
       getLastError().should.match(/^a preset must be an Array with two scales*/);
     });
