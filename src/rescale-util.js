@@ -2,6 +2,8 @@
 
 'use strict';
 
+exports.optionale = require('optionale');
+
 var initialError = '',
     error = initialError,
     validScaleExample = 'Eg. [0, 1]',

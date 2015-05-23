@@ -4,7 +4,7 @@
 
 var should = require('should');
 var sinon = require('sinon');
-var rescaleUtil = require('../src/rescale-util.js');
+var rescaleUtil = require('../src/rescale-util');
 
 var isValidScale = rescaleUtil.isValidScale;
 var isValidPreset = rescaleUtil.isValidPreset;
@@ -14,6 +14,10 @@ var resetLastError = rescaleUtil.resetLastError;
 var RescaleError = rescaleUtil.RescaleError;
 
 describe('utility', function() {
+  it('should export optional', function() {
+    rescaleUtil.optionale.should.not.have.type('undefined');
+  });
+
   describe('isValidScale', function () {
     describe('called with proper scales', function () {
       it('should validate', function() {
