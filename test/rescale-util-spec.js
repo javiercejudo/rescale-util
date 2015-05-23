@@ -14,8 +14,8 @@ var resetLastError = rescaleUtil.resetLastError;
 var RescaleError = rescaleUtil.RescaleError;
 
 describe('utility', function() {
-  it('should export optional', function() {
-    rescaleUtil.optionale.should.not.have.type('undefined');
+  it('should export arbitrary precision', function() {
+    rescaleUtil.arbitraryPrecision.should.not.have.type('undefined');
   });
 
   describe('isValidScale', function () {

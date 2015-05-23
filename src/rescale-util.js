@@ -2,7 +2,7 @@
 
 'use strict';
 
-exports.optionale = require('optionale');
+exports.arbitraryPrecision = require('./arbitrary-precision');
 
 var initialError = '',
     error = initialError,
