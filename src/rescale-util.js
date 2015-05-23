@@ -2,8 +2,6 @@
 
 'use strict';
 
-exports.arbitraryPrecision = require('./arbitrary-precision');
-
 var initialError = '',
     error = initialError,
     validScaleExample = 'Eg. [0, 1]',
