@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/javiercejudo/rescale-util#readme",
   "devDependencies": {
-    "big.js": "^3.0.2",
     "gulp": "^3.8.11",
     "gulp-coverage": "^0.3.34",
     "gulp-coveralls": "^0.1.3",
