@@ -49,9 +49,7 @@ exports.isValidPreset = api.isValidPreset = function isValidPreset(preset) {
     return false;
   }
 
-  return preset.every(function (scale) {
-    return api.isValidScale(scale);
-  });
+  return preset.every(api.isValidScale);
 };
 
 exports.areValidPresets = function areValidPresets(presets) {
@@ -61,9 +59,7 @@ exports.areValidPresets = function areValidPresets(presets) {
     return false;
   }
 
-  return presets.every(function (preset) {
-    return api.isValidPreset(preset);
-  });
+  return presets.every(api.isValidPreset);
 };
 
 exports.getLastError = function getLastError() {
