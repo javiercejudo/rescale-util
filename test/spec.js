@@ -14,16 +14,16 @@ var resetLastError = rescaleUtil.resetLastError;
 var RescaleError = rescaleUtil.RescaleError;
 
 describe('utility', function() {
-  describe('isValidScale', function () {
-    describe('called with proper scales', function () {
+  describe('isValidScale', function() {
+    describe('called with proper scales', function() {
       it('should validate', function() {
         isValidScale([Math.PI, 0]).should.be.exactly(true);
         isValidScale([-4/3, -1]).should.be.exactly(true);
       });
     });
 
-    describe('called with improper scales', function () {
-      afterEach(function () {
+    describe('called with improper scales', function() {
+      afterEach(function() {
         resetLastError();
       });
 
@@ -38,16 +38,16 @@ describe('utility', function() {
     });
   });
 
-  describe('isValidPreset', function () {
-    describe('called with proper presets', function () {
+  describe('isValidPreset', function() {
+    describe('called with proper presets', function() {
       it('should validate', function() {
         isValidPreset([[Math.PI, 0], [Math.E, 5]]).should.be.exactly(true);
         isValidPreset([[0, 100], [32, 212]]).should.be.exactly(true);
       });
     });
 
-    describe('called with improper presets', function () {
-      afterEach(function () {
+    describe('called with improper presets', function() {
+      afterEach(function() {
         resetLastError();
       });
 
@@ -56,20 +56,23 @@ describe('utility', function() {
         isValidPreset([[-Infinity, 0], [0, 5]]).should.be.exactly(false);
         isValidPreset(NaN, NaN).should.be.exactly(false);
         isValidPreset([-5, -2], {min: 0, max: 5}).should.be.exactly(false);
+        isValidPreset().should.be.exactly(false);
       });
     });
   });
 
-  describe('areValidPreset', function () {
-    describe('called with proper presets', function () {
+  describe('areValidPreset', function() {
+    describe('called with proper presets', function() {
       it('should validate', function() {
         areValidPresets([[[Math.PI, 0], [Math.E, 5]], [[0, 100], [32, 212]]])
           .should.be.exactly(true);
+
+        areValidPresets([]).should.be.exactly(true);
       });
     });
 
-    describe('called with improper presets', function () {
-      afterEach(function () {
+    describe('called with improper presets', function() {
+      afterEach(function() {
         resetLastError();
       });
 
@@ -81,8 +84,8 @@ describe('utility', function() {
     });
   });
 
-  describe('getLastError', function () {
-    afterEach(function () {
+  describe('getLastError', function() {
+    afterEach(function() {
       resetLastError();
     });
 
@@ -97,7 +100,7 @@ describe('utility', function() {
       getLastError().should.match(/^the scale must be an Array with two elements*/);
     });
 
-    it('should recognise scales where either extreme is not a finite number', function() {
+    it('should recognise scales where extremes are not a finite number', function() {
       var extremesErrorMessageRegex = (/^the extremes must be finite numbers*/);
 
       isValidScale([-Infinity, 0]);
@@ -131,7 +134,7 @@ describe('utility', function() {
     });
   });
 
-  describe('resetLastError', function () {
+  describe('resetLastError', function() {
     it('should reset the last error', function() {
       isValidScale(Math.LOG2E);
       getLastError().should.not.be.exactly('');
@@ -140,7 +143,7 @@ describe('utility', function() {
     });
   });
 
-  describe('RescaleError', function () {
+  describe('RescaleError', function() {
     it('should be an instance of Error', function() {
       (new RescaleError()).should.be.an.instanceof(Error);
     });
